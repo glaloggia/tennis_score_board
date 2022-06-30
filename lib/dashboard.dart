@@ -12,6 +12,8 @@ class Dashboard{
   late List<List> scoreBoard;
   dynamic currentGame;
   late bool isTieBreak;
+  late int pointsATB;
+  late int pointsBTB;
 
   Dashboard(){
     deuce = false;
@@ -24,10 +26,14 @@ class Dashboard{
     aPointsIterator = pointsArray.iterator;
     bPointsIterator = pointsArray.iterator;
     currentGame = ["0","0"];
+    pointsATB = 0;
+    pointsBTB = 0;
   }
 
   pointA(){
-    if(deuce){
+    if(isTieBreak){
+      pointATb();
+    }else if(deuce){
       setAdvantage('A');
     }else if(advantageA){
       gameA();
@@ -38,14 +44,17 @@ class Dashboard{
   }
 
   pointB(){
-    if(deuce){
+    if(isTieBreak){
+      pointBTb();
+    }else if(deuce){
       setAdvantage('B');
+    }else if(advantageB){
+      gameB();
     }else if(bPointsIterator.moveNext()){
       currentGame[1] = bPointsIterator.current;
+      if((currentGame[1] == '40')&&(currentGame[0]=='40')) deuce = true;
     }
-    if((currentGame[0] == '40')&&(currentGame[1]=='40')) deuce = true;
   }
-
 
   void setAdvantage(String s) {
     switch(s){
@@ -72,6 +81,32 @@ class Dashboard{
       isTieBreak = true;
     }else if((setsIterator.current[0] >  6 )&&( setsIterator.current[0] - setsIterator.current[1] == 2)){
       setsIterator.moveNext();
+    }
+  }
+
+  void gameB() {
+    setsIterator.current[1]++;
+    if((setsIterator.current[1] == 6)&&( setsIterator.current[0]==6)){
+      isTieBreak = true;
+    }else if((setsIterator.current[1] >  6 )&&( setsIterator.current[1] - setsIterator.current[0] == 2)){
+      setsIterator.moveNext();
+    }
+  }
+
+  void pointATb() {
+    pointsATB++;
+    if ((pointsATB > 6)&&(pointsATB-pointsBTB > 1)){
+      gameA();
+      pointsATB = 0;
+      pointsBTB = 0;
+    }
+  }
+  void pointBTb() {
+    pointsBTB++;
+    if ((pointsBTB > 6)&&(pointsBTB-pointsATB > 1)){
+      gameB();
+      pointsATB = 0;
+      pointsBTB = 0;
     }
   }
 
