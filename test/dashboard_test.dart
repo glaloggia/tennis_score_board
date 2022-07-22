@@ -1,38 +1,48 @@
-import 'package:tennis_score_board/dashboard.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:tennis_score_board/dashboard.dart';
 
 void main(){
 
-  test('First Test', () {
+  test('Test: Deuce True', () {
 
-    var aDashboard = new Dashboard();
+    var aDashboard = Dashboard();
     aDashboard.pointA();
     aDashboard.pointA();
     aDashboard.pointA();
     aDashboard.pointB();
     aDashboard.pointB();
     aDashboard.pointB();
-    print(aDashboard.currentGame);
-    print(aDashboard.deuce);
-    aDashboard.gameA();
-    var arr = new List.filled(5, 0, growable: true);
-    print(arr);
+    expect(aDashboard.deuce,isTrue);
   });
 
-  test('Second Test', () {
+  test('Test: Advantage A',(){
+    var aDashboard = Dashboard();
+    aDashboard.pointA();
+    aDashboard.pointA();
+    aDashboard.pointA();
+    aDashboard.pointB();
+    aDashboard.pointB();
+    aDashboard.pointB();
+    aDashboard.pointA();
+    expect(aDashboard.advantageA, isTrue);
+  });
 
-    var aDashboard = new Dashboard();
+  test('Test: Advantage - Four points in a row',(){
+    var aDashboard = Dashboard();
     aDashboard.pointA();
     aDashboard.pointA();
     aDashboard.pointA();
-    aDashboard.pointB();
-    aDashboard.pointB();
-    aDashboard.pointB();
-    print(aDashboard.currentGame);
-    print(aDashboard.deuce);
-    aDashboard.gameA();
-    var arr = new List.filled(5, 0, growable: true);
-    print(arr);
+    aDashboard.pointA();
+    expect(aDashboard.advantageA, isFalse);
+  });
+
+  test('Test: Deuce - Four points in a row',(){
+    var aDashboard = Dashboard();
+    aDashboard.pointA();
+    aDashboard.pointA();
+    aDashboard.pointA();
+    aDashboard.pointA();
+    expect(aDashboard.advantageA, isFalse);
   });
 
 }

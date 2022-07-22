@@ -73,6 +73,7 @@ class Dashboard{
         }
         break;
     }
+    deuce = false;
   }
 
   void gameA() {
@@ -101,6 +102,7 @@ class Dashboard{
       pointsBTB = 0;
     }
   }
+
   void pointBTb() {
     pointsBTB++;
     if ((pointsBTB > 6)&&(pointsBTB-pointsATB > 1)){
