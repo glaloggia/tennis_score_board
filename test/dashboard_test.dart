@@ -1,10 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tennis_score_board/dashboard.dart';
 
-void main(){
-
-  test('Test: Deuce True', () {
-
+void main() {
+  test('Test 1: Deuce - True - Normal Path', () {
     var aDashboard = Dashboard();
     aDashboard.pointA();
     aDashboard.pointA();
@@ -12,10 +10,10 @@ void main(){
     aDashboard.pointB();
     aDashboard.pointB();
     aDashboard.pointB();
-    expect(aDashboard.deuce,isTrue);
+    expect(aDashboard.deuce, isTrue);
   });
 
-  test('Test: Advantage A',(){
+  test('Test 2: Advantage A - True - Normal Path', () {
     var aDashboard = Dashboard();
     aDashboard.pointA();
     aDashboard.pointA();
@@ -27,7 +25,19 @@ void main(){
     expect(aDashboard.advantageA, isTrue);
   });
 
-  test('Test: Advantage - Four points in a row',(){
+  test('Test 3: Advantage B - True - Normal Path', () {
+    var aDashboard = Dashboard();
+    aDashboard.pointA();
+    aDashboard.pointA();
+    aDashboard.pointA();
+    aDashboard.pointB();
+    aDashboard.pointB();
+    aDashboard.pointB();
+    aDashboard.pointB();
+    expect(aDashboard.advantageB, isTrue);
+  });
+
+  test('Test 4: Advantage A - False - Four points in a row', () {
     var aDashboard = Dashboard();
     aDashboard.pointA();
     aDashboard.pointA();
@@ -36,13 +46,21 @@ void main(){
     expect(aDashboard.advantageA, isFalse);
   });
 
-  test('Test: Deuce - Four points in a row',(){
+  test('Test 5: Advantage B - False - Four points in a row', () {
+    var aDashboard = Dashboard();
+    aDashboard.pointB();
+    aDashboard.pointB();
+    aDashboard.pointB();
+    aDashboard.pointB();
+    expect(aDashboard.advantageB, isFalse);
+  });
+
+  test('Test 6: Deuce - False - Four points in a row', () {
     var aDashboard = Dashboard();
     aDashboard.pointA();
     aDashboard.pointA();
     aDashboard.pointA();
     aDashboard.pointA();
-    expect(aDashboard.advantageA, isFalse);
+    expect(aDashboard.deuce, isFalse);
   });
-
 }
