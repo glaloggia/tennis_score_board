@@ -63,4 +63,14 @@ void main() {
     aDashboard.pointA();
     expect(aDashboard.deuce, isFalse);
   });
+
+  test('Test 7: Game A', () {
+    var aDashboard = Dashboard();
+    aDashboard.pointA();
+    aDashboard.pointA();
+    aDashboard.pointA();
+    aDashboard.pointA();
+    print(aDashboard.currentGame);
+    print(aDashboard.scoreBoard);
+  });
 }
