@@ -66,11 +66,27 @@ void main() {
 
   test('Test 7: Game A', () {
     var aDashboard = Dashboard();
+    var testScoreboard = List.generate(
+        5, (i) => List.filled(2, 0, growable: false),
+        growable: false);
+    testScoreboard[0] = [1, 0];
     aDashboard.pointA();
     aDashboard.pointA();
     aDashboard.pointA();
     aDashboard.pointA();
-    print(aDashboard.currentGame);
-    print(aDashboard.scoreBoard);
+    expect(aDashboard.scoreBoard, testScoreboard);
+  });
+
+  test('Test 8: Game B', () {
+    var aDashboard = Dashboard();
+    var testScoreboard = List.generate(
+        5, (i) => List.filled(2, 0, growable: false),
+        growable: false);
+    testScoreboard[0] = [0, 1];
+    aDashboard.pointB();
+    aDashboard.pointB();
+    aDashboard.pointB();
+    aDashboard.pointB();
+    expect(aDashboard.scoreBoard, testScoreboard);
   });
 }
