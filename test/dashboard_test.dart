@@ -89,4 +89,18 @@ void main() {
     aDashboard.pointB();
     expect(aDashboard.scoreBoard, testScoreboard);
   });
+
+  test('Test 9: 1 Set + 1 game', () {
+    var aDashboard = Dashboard();
+    var testScoreboard = List.generate(
+        5, (i) => List.filled(2, 0, growable: false),
+        growable: false);
+    testScoreboard[1] = [1, 0];
+    testScoreboard[0] = [6, 0];
+
+    for (var i = 0; i < 28; i++) {
+      aDashboard.pointA();
+    }
+    expect(aDashboard.scoreBoard, testScoreboard);
+  });
 }

@@ -85,20 +85,28 @@ class Dashboard {
     setsIterator.current[0]++;
     if ((setsIterator.current[0] == 6) && (setsIterator.current[1] == 6)) {
       isTieBreak = true;
-    } else if ((setsIterator.current[0] > 6) &&
-        (setsIterator.current[0] - setsIterator.current[1] == 2)) {
+    } else if ((setsIterator.current[0] >= 6) &&
+        (setsIterator.current[0] - setsIterator.current[1] > 1)) {
       setsIterator.moveNext();
     }
+    currentGame[0] = '0';
+    currentGame[1] = '0';
+    aPointsIterator = pointsArray.iterator;
+    bPointsIterator = pointsArray.iterator;
   }
 
   void gameB() {
     setsIterator.current[1]++;
     if ((setsIterator.current[1] == 6) && (setsIterator.current[0] == 6)) {
       isTieBreak = true;
-    } else if ((setsIterator.current[1] > 6) &&
-        (setsIterator.current[1] - setsIterator.current[0] == 2)) {
+    } else if ((setsIterator.current[1] >= 6) &&
+        (setsIterator.current[1] - setsIterator.current[0] > 1)) {
       setsIterator.moveNext();
     }
+    currentGame[0] = '0';
+    currentGame[1] = '0';
+    aPointsIterator = pointsArray.iterator;
+    bPointsIterator = pointsArray.iterator;
   }
 
   void pointATb() {
