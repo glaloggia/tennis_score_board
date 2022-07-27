@@ -14,8 +14,10 @@ class Dashboard {
   late bool isTieBreak;
   late int pointsATB;
   late int pointsBTB;
+  late bool isActive;
 
   Dashboard() {
+    isActive = true;
     deuce = false;
     advantageA = false;
     advantageB = false;
@@ -87,7 +89,7 @@ class Dashboard {
       isTieBreak = true;
     } else if ((setsIterator.current[0] >= 6) &&
         (setsIterator.current[0] - setsIterator.current[1] > 1)) {
-      setsIterator.moveNext();
+      if (!setsIterator.moveNext()) isActive = false;
     }
     currentGame[0] = '0';
     currentGame[1] = '0';
@@ -101,7 +103,7 @@ class Dashboard {
       isTieBreak = true;
     } else if ((setsIterator.current[1] >= 6) &&
         (setsIterator.current[1] - setsIterator.current[0] > 1)) {
-      setsIterator.moveNext();
+      if (!setsIterator.moveNext()) isActive = false;
     }
     currentGame[0] = '0';
     currentGame[1] = '0';

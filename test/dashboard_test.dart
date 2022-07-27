@@ -103,4 +103,43 @@ void main() {
     }
     expect(aDashboard.scoreBoard, testScoreboard);
   });
+
+  test('Test 10: 2 Set + 1 game', () {
+    var aDashboard = Dashboard();
+    var testScoreboard = List.generate(
+        5, (i) => List.filled(2, 0, growable: false),
+        growable: false);
+    testScoreboard[0] = [6, 0];
+    testScoreboard[1] = [6, 0];
+    testScoreboard[2] = [1, 0];
+
+    for (var i = 0; i < 52; i++) {
+      aDashboard.pointA();
+    }
+    expect(aDashboard.scoreBoard, testScoreboard);
+  });
+
+  test('Test 11: 1 match', () {
+    var aDashboard = Dashboard();
+    var testScoreboard = List.generate(
+        5, (i) => List.filled(2, 0, growable: false),
+        growable: false);
+    testScoreboard[0] = [6, 0];
+    testScoreboard[1] = [6, 0];
+    testScoreboard[2] = [6, 0];
+    testScoreboard[3] = [6, 0];
+    testScoreboard[4] = [6, 0];
+
+    for (var i = 0; i < 120; i++) {
+      aDashboard.pointA();
+    }
+    expect(aDashboard.scoreBoard, testScoreboard);
+  });
+  test('Test 12: 1 match - Dashboard closed', () {
+    var aDashboard = Dashboard();
+    for (var i = 0; i < 120; i++) {
+      aDashboard.pointA();
+    }
+    expect(aDashboard.isActive, isFalse);
+  });
 }
