@@ -135,6 +135,7 @@ void main() {
     }
     expect(aDashboard.scoreBoard, testScoreboard);
   });
+
   test('Test 12: 1 match - Dashboard closed', () {
     var aDashboard = Dashboard();
     for (var i = 0; i < 120; i++) {

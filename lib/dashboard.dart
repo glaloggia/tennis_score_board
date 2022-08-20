@@ -40,6 +40,10 @@ class Dashboard {
       setAdvantage('A');
     } else if (advantageA) {
       gameA();
+    }else if (advantageB){
+      advantageB = false;
+      currentGame[1]='40';
+      deuce = true;
     } else if (aPointsIterator.moveNext()) {
       currentGame[0] = aPointsIterator.current;
       if ((currentGame[0] == '40') && (currentGame[1] == '40')) deuce = true;
@@ -55,6 +59,10 @@ class Dashboard {
       setAdvantage('B');
     } else if (advantageB) {
       gameB();
+    }else if (advantageA){
+      advantageA = false;
+      deuce = true;
+      currentGame[0]='40';
     } else if (bPointsIterator.moveNext()) {
       currentGame[1] = bPointsIterator.current;
       if ((currentGame[1] == '40') && (currentGame[0] == '40')) deuce = true;
@@ -95,6 +103,10 @@ class Dashboard {
     currentGame[1] = '0';
     aPointsIterator = pointsArray.iterator;
     bPointsIterator = pointsArray.iterator;
+    deuce = false;
+    advantageA = false;
+    advantageB = false;
+    isTieBreak = false;
   }
 
   void gameB() {
@@ -109,6 +121,10 @@ class Dashboard {
     currentGame[1] = '0';
     aPointsIterator = pointsArray.iterator;
     bPointsIterator = pointsArray.iterator;
+    deuce = false;
+    advantageA = false;
+    advantageB = false;
+    isTieBreak = false;
   }
 
   void pointATb() {
