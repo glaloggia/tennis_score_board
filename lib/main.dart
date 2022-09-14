@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:tennis_score_board/dashboard.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  MobileAds.instance.initialize();
   runApp(const MyApp());
 }
 
@@ -91,6 +94,40 @@ class _MyHomePageState extends State<MyHomePage> {
     var scoreboardBorderStyle = BorderSide(width: 2.5,color: _scoreboarlinesdbg);
     var scoreboardBackgroundColor = _scoreboardbg;
 
+    final BannerAd myBanner = BannerAd(
+      adUnitId: 'ca-app-pub-1494903485989800/7751009963',
+      size: AdSize.banner,
+      request: AdRequest(),
+      listener: BannerAdListener(),
+    );
+
+    final BannerAdListener listener = BannerAdListener(
+      // Called when an ad is successfully received.
+      onAdLoaded: (Ad ad) => print('Ad loaded.'),
+      // Called when an ad request failed.
+      onAdFailedToLoad: (Ad ad, LoadAdError error) {
+        // Dispose the ad here to free resources.
+        ad.dispose();
+        print('Ad failed to load: $error');
+      },
+      // Called when an ad opens an overlay that covers the screen.
+      onAdOpened: (Ad ad) => print('Ad opened.'),
+      // Called when an ad removes an overlay that covers the screen.
+      onAdClosed: (Ad ad) => print('Ad closed.'),
+      // Called when an impression occurs on the ad.
+      onAdImpression: (Ad ad) => print('Ad impression.'),
+    );
+
+    myBanner.load();
+    final AdWidget adWidget = AdWidget(ad: myBanner);
+
+    final Container adContainer = Container(
+      alignment: Alignment.center,
+      child: adWidget,
+      width: myBanner.size.width.toDouble(),
+      height: myBanner.size.height.toDouble(),
+    );
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -154,28 +191,32 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Spacer(),
             // Divider(color: Color.fromRGBO(24, 217, 185, 1),thickness: 2,),
-            Row(children: [
-              Spacer(),
-              Text("Points A",style: TextStyle(fontSize: 30.0,color: _pointstext,fontWeight: FontWeight.bold)),
-              Spacer(),
-              Text("Points B",style: TextStyle(fontSize: 30.0,color: _pointstext,fontWeight: FontWeight.bold)),
-              Spacer(),
-            ],),
-            Divider(color: Color.fromRGBO(24, 217, 185, 1),thickness: 5),
-            Row(children: [
-              Spacer(),
-              Text(
-                newDashboard.currentGame[0].toString(),
-                style: TextStyle(fontSize: 40.0,color: _pointstext)
-              ),
-              Spacer(),
-              Text(
-                newDashboard.currentGame[1].toString(),
-                style: TextStyle(fontSize: 40.0,color: _pointstext),
-              ),
-              Spacer()
-            ],),
-            Divider(color: Color.fromRGBO(24, 217, 185, 1),thickness: 10),
+              Row(children: [
+                Spacer(),
+                Text("Points A", style: TextStyle(fontSize: 30.0,
+                    color: _pointstext,
+                    fontWeight: FontWeight.bold)),
+                Spacer(),
+                Text("Points B", style: TextStyle(fontSize: 30.0,
+                    color: _pointstext,
+                    fontWeight: FontWeight.bold)),
+                Spacer(),
+              ],),
+              Divider(color: Color.fromRGBO(24, 217, 185, 1), thickness: 5),
+              Row(children: [
+                Spacer(),
+                Text(
+                    newDashboard.currentGame[0].toString(),
+                    style: TextStyle(fontSize: 40.0, color: _pointstext)
+                ),
+                Spacer(),
+                Text(
+                  newDashboard.currentGame[1].toString(),
+                  style: TextStyle(fontSize: 40.0, color: _pointstext),
+                ),
+                Spacer()
+              ],),
+              Divider(color: Color.fromRGBO(24, 217, 185, 1), thickness: 10),
             Spacer(),
             Row(children: [
               Spacer(),
@@ -202,7 +243,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Text("RESET",style: TextStyle(fontSize: 30.0),)),
               Spacer()
             ],),
-            Spacer()
+            // Spacer(),
+            adContainer
           ],
         ),
       ),
